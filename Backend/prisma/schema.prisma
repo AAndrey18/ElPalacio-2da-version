@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id             Int             @id @default(autoincrement())
+  name           String
+  email          String          @unique
+  password       String
+  role           String          // "buyer" o "seller"
+  products       Product[]       // Relación: Un vendedor tiene muchos productos
+  orders         Order[]         // Relación: Un comprador tiene muchas compras
+  addresses      Address[]
+  paymentMethods PaymentMethod[]
+  reviews        Review[]
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  sellerId    Int
+  seller      User        @relation(fields: [sellerId], references: [id])
+  title       String
+  description String
+  price       Float
+  stock       Int         @default(0)
+  location    String      // Para API de Google Maps
+  imageUrl    String?
+  orders      OrderItem[] // Relación con las ventas
+   reviews        Review[]
+}
+
+model Address {
+  id       Int     @id @default(autoincrement())
+  userId   Int
+  user     User    @relation(fields: [userId], references: [id])
+  street   String
+  colony   String
+  zipCode  String
+  orders   Order[]
+}
+
+model PaymentMethod {
+  id            Int     @id @default(autoincrement())
+  userId        Int
+  user          User    @relation(fields: [userId], references: [id])
+  cardNumber    String  // Ficticio (ej. "**** 1234")
+  cardBrand     String  // Ficticio (ej. "Visa")
+  orders        Order[]
+}
+
+model Order {
+  id               Int         @id @default(autoincrement())
+  buyerId          Int
+  buyer            User        @relation(fields: [buyerId], references: [id])
+  addressId        Int
+  address          Address     @relation(fields: [addressId], references: [id])
+  paymentMethodId  Int
+  paymentMethod    PaymentMethod @relation(fields: [paymentMethodId], references: [id])
+  total            Float
+  status           String      @default("procesando")
+  estimatedArrival DateTime
+  items            OrderItem[]
+  createdAt        DateTime    @default(now())
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+}
+
+model Review {
+  id             Int      @id @default(autoincrement())
+  productId      Int
+  product        Product  @relation(fields: [productId], references: [id])
+  buyerId        Int
+  buyer          User     @relation(fields: [buyerId], references: [id])
+  rating         Int
+  comment        String
+  reviewImageUrl String?
+  createdAt      DateTime @default(now())
+}
