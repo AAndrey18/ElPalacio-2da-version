@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from './context/AuthContext'; // Importamos el contexto
-import Navbar from './components/Navbar';
+import navbar from './components/navbar';
 import HomeView from './views/HomeView';
 import DetailView from './views/DetailView';
 import CheckoutView from './views/CheckoutView';
@@ -28,16 +28,15 @@ export default function App() {
     setCurrentView('detail');
   };
 
+  //arreglo carrito
   const handleAddToCart = (product) => {
-  // Revisamos si el producto ya está en el carrito
+
   const existingItem = cart.find(item => item.id === product.id);
   if (existingItem) {
-    // Si ya está, le sumamos 1 a la cantidad
     setCart(cart.map(item => 
       item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
     ));
   } else {
-    // Si es nuevo, lo agregamos con cantidad 1
     setCart([...cart, { ...product, quantity: 1 }]);
   }
   alert(`¡${product.title} agregado al carrito!`);
@@ -48,7 +47,7 @@ export default function App() {
 
   return (
     <div className="app-container min-h-screen bg-[#DDE6ED]">
-      {/* Pasamos handleNavigate al Navbar para que los botones funcionen */}
+      {}
       <Navbar onNavigate={handleNavigate} />
       
       <main className="main-content max-w-7xl mx-auto py-8">
