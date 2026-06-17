@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useAuth } from './context/AuthContext'; // Importamos el contexto
-import navbar from './components/navbar';
+import { useAuth } from './context/AuthContext'; // Importar el contexto
+import Navbar from './components/Navbar';
 import HomeView from './views/HomeView';
 import DetailView from './views/DetailView';
 import CheckoutView from './views/CheckoutView';
