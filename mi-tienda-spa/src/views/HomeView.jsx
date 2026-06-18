@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import API_BASE_URL from '../config'
+
 
 export default function HomeView({ onSelectProduct }) {
   const { user } = useAuth();
