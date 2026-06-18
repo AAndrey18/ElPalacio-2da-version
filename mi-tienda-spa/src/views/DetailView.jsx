@@ -11,7 +11,7 @@ export default function DetailView({ product, onNavigate, onAddToCart }) {
   // Cargar reseñas cuando se abre el producto
   useEffect(() => {
     if (!product) return;
-    fetch(`${API_BASE_URL}/api/products/${product.id}/reviews`)
+    fetch(`http://localhost:3001/api/products/${product.id}/reviews`)
       .then(res => res.json())
       .then(data => setReviews(data))
       .catch(err => console.error(err));
@@ -23,7 +23,7 @@ export default function DetailView({ product, onNavigate, onAddToCart }) {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/api/reviews`, {
+      const response = await fetch(`http://localhost:3001/api/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -35,7 +35,7 @@ export default function DetailView({ product, onNavigate, onAddToCart }) {
       if (!response.ok) throw new Error("Error al publicar");
       
       // Recargar reseñas
-      const updatedReviews = await fetch(`${API_BASE_URL}/api/products/${product.id}/reviews`).then(res => res.json());
+      const updatedReviews = await fetch(`http://localhost:3001/api/products/${product.id}/reviews`).then(res => res.json());
       setReviews(updatedReviews);
       setNewReview({ rating: 5, comment: '', reviewImageUrl: '' }); // Limpiar formulario
     } catch (error) {

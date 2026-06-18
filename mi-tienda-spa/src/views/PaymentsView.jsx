@@ -18,7 +18,7 @@ export default function PaymentsView({ onNavigate }) {
 
   useEffect(() => {
     if (user) {
-      fetch(`${API_BASE_URL}/api/users/${user.id}/payments`)
+      fetch(`http://localhost:3001/api/users/${user.id}/payments`)
         .then(res => res.json())
         .then(data => setPayments(data))
         .catch(err => console.error(err));
@@ -40,7 +40,7 @@ export default function PaymentsView({ onNavigate }) {
     
     try {
       // enviar cardNumber y cardBrand (Seguridad simulada)
-      const response = await fetch(`${API_BASE_URL}/api/payments`, {
+      const response = await fetch(`http://localhost:3001/api/payments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

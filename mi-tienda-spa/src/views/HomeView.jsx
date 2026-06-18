@@ -10,7 +10,7 @@ export default function HomeView({ onSelectProduct }) {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/products`);
+        const response = await fetch(`http://localhost:3001/api/products`);
         if (!response.ok) throw new Error('Error al conectar con el servidor');
         
         const data = await response.json();
