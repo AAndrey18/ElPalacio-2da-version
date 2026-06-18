@@ -25,8 +25,8 @@ export default function LoginView({ onNavigate }) {
     setError(null);
 
     const url = isRegistering 
-      ? 'http://localhost:3001/api/register' 
-      : 'http://localhost:3001/api/login';
+      ? `${API_BASE_URL}/api/register` 
+      : `${API_BASE_URL}/api/login`;
 
     try {
       const response = await fetch(url, {

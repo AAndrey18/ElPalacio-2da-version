@@ -35,7 +35,7 @@ export default function PublishView({ onNavigate }) {
 
     try {
       //envia los datos al backend
-      const response = await fetch('http://localhost:3001/api/products', {
+      const response = await fetch(`${API_BASE_URL}/api/products`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

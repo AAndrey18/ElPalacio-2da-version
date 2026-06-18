@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config'
 
 export default function AddressesView({ onNavigate }) {
   const { user } = useAuth();
@@ -9,7 +10,7 @@ export default function AddressesView({ onNavigate }) {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:3001/api/users/${user.id}/addresses`)
+      fetch(`${API_BASE_URL}/api/users/${user.id}/addresses`)
         .then(res => res.json())
         .then(data => setAddresses(data))
         .catch(err => console.error(err));
@@ -20,7 +21,7 @@ export default function AddressesView({ onNavigate }) {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch('http://localhost:3001/api/addresses', {
+      const response = await fetch(`${API_BASE_URL}/api/addresses`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, userId: user.id })

@@ -242,3 +242,14 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Servidor Backend corriendo en el puerto ${PORT}`);
 });
+
+
+//configuracion para db en la nube
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => {
+    console.log(`Servidor Backend corriendo localmente en el puerto ${PORT}`);
+  });
+}
+
+module.exports = app;
