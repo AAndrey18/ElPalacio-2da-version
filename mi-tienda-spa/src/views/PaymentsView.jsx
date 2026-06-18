@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config'
 
 export default function PaymentsView({ onNavigate }) {
   const { user } = useAuth();
@@ -17,7 +18,7 @@ export default function PaymentsView({ onNavigate }) {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:3001/api/users/${user.id}/payments`)
+      fetch(`${API_BASE_URL}/api/users/${user.id}/payments`)
         .then(res => res.json())
         .then(data => setPayments(data))
         .catch(err => console.error(err));
@@ -39,7 +40,7 @@ export default function PaymentsView({ onNavigate }) {
     
     try {
       // enviar cardNumber y cardBrand (Seguridad simulada)
-      const response = await fetch('http://localhost:3001/api/payments', {
+      const response = await fetch(`${API_BASE_URL}/api/payments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

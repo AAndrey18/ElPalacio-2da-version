@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config'
 
 export default function CheckoutView({ cart = [], setCart, onNavigate }) {
   const { user } = useAuth();
